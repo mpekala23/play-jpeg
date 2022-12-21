@@ -7,16 +7,17 @@ import React, {
   useState,
 } from "react";
 import styled from "styled-components";
+import { LIGHT } from "../../styles";
+import { getPositionString, GRIDSIZE } from "../../utils";
 import Box from "./Box";
-import {
-  BOXSIZE,
-  GRIDSIZE,
-  BOXBORDERSIZE,
-  getPositionString,
-} from "./constants";
+import { BOXSIZE, BOXBORDERSIZE } from "./constants";
+
+interface Props {
+  updateVals: (vals: { [key: string]: number }) => void;
+}
 
 const OuterBox = styled.div`
-  border: 1px solid black;
+  border: 1px solid ${LIGHT};
   width: ${BOXSIZE * GRIDSIZE + GRIDSIZE * BOXBORDERSIZE}px;
   height: ${BOXSIZE * GRIDSIZE + GRIDSIZE * BOXBORDERSIZE}px;
 `;
@@ -31,7 +32,7 @@ function mapMouseToPos(
   };
 }
 
-const QTable: FC = () => {
+const QTable: FC<Props> = ({ updateVals }) => {
   const selfRef = useRef<HTMLDivElement>(null);
   const BLANK_BOOL_MAP = useRef<{ [key: string]: boolean }>({});
   const [vals, setVals] = useState<{ [key: string]: number }>({});
@@ -172,6 +173,10 @@ const QTable: FC = () => {
       startEditing();
     }
   }, [isSelecting]);
+
+  useEffect(() => {
+    updateVals(vals);
+  }, [vals]);
 
   return (
     <OuterBox

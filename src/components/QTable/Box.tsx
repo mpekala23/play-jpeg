@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { ALT_DARK, DARK, DARK_LESS, LIGHT } from "../../styles";
+import { DARK, DARK_LESS, LIGHT } from "../../styles";
 import { BOXSIZE, BOXBORDERSIZE } from "./constants";
 
 interface Props {
@@ -41,6 +41,7 @@ const HiddenInput = styled.input`
   margin: 0px;
   border: 0px;
   color: ${LIGHT};
+  font-size: 18px;
   background-color: transparent;
   text-align: center;
   caret-color: ${DARK};
