@@ -7,13 +7,15 @@ import React, {
   useState,
 } from "react";
 import styled from "styled-components";
-import { SketchPicker } from "react-color";
 import { BOXSIZE, BOXBORDERSIZE } from "./constants";
 import Pixel from "./Pixel";
 import { getPositionString, GRIDSIZE } from "../../utils";
+import Menu from "./Menu";
+import { useOutsideAlert } from "../../utils/hooks.ts/useOutsideAlert";
 
 interface Props {
   updateVals: (vals: { [key: string]: string }) => void;
+  updatePenDown: (isDown: boolean) => void;
 }
 
 const CanvasContainer = styled.div``;
@@ -34,12 +36,13 @@ function mapMouseToPos(
   };
 }
 
-const Canvas: FC<Props> = ({ updateVals }) => {
+const Canvas: FC<Props> = ({ updateVals, updatePenDown }) => {
   const selfRef = useRef<HTMLDivElement>(null);
   const BLANK_VAL_MAP = useRef<{ [key: string]: string }>({});
   const [vals, setVals] = useState<{ [key: string]: string }>({});
   const [isPenDown, setIsPenDown] = useState<boolean>(false);
-  const [color, setColor] = useState<string>("#888");
+  const [color, setColor] = useState<string>("#000000");
+  const [isEyedropping, setIsEyedropping] = useState<boolean>(false);
   const mouseX = useRef<number>(0);
   const mouseY = useRef<number>(0);
 
@@ -64,6 +67,10 @@ const Canvas: FC<Props> = ({ updateVals }) => {
     setIsPenDown(false);
   }, [setIsPenDown]);
 
+  useEffect(() => {
+    updatePenDown(isPenDown);
+  }, [isPenDown]);
+
   const clearCanvas = useCallback(() => {
     setVals({ ...BLANK_VAL_MAP.current });
   }, [setVals]);
@@ -79,6 +86,10 @@ const Canvas: FC<Props> = ({ updateVals }) => {
     return result;
   };
 
+  useOutsideAlert(selfRef, () => {
+    setIsEyedropping(false);
+  });
+
   return (
     <CanvasContainer>
       <OuterCanvas
@@ -89,11 +100,16 @@ const Canvas: FC<Props> = ({ updateVals }) => {
             mouseY.current = e.pageY - selfRef.current.offsetTop;
             const pos = mapMouseToPos(mouseX.current, mouseY.current);
             const key = getPositionString(pos.rx, pos.cx);
-            setVals((oldVals) => {
-              const newVals = { ...oldVals };
-              newVals[key] = color;
-              return newVals;
-            });
+            if (!isEyedropping) {
+              setVals((oldVals) => {
+                const newVals = { ...oldVals };
+                newVals[key] = color;
+                return newVals;
+              });
+            } else {
+              setColor(vals[key]);
+              setIsEyedropping(false);
+            }
           }
           penDown();
         }}
@@ -114,14 +130,23 @@ const Canvas: FC<Props> = ({ updateVals }) => {
           }
         }}
         onMouseLeave={penUp}
+        onMouseEnter={(e) => {
+          if (e.buttons > 0) {
+            penDown();
+          } else {
+            penUp();
+          }
+        }}
       >
         {renderBoxes()}
       </OuterCanvas>
-      <SketchPicker
+      <Menu
         color={color}
-        onChange={(newColor) => {
-          setColor(newColor.hex);
-        }}
+        updateColor={setColor}
+        updatePixels={setVals}
+        isEyedropping={isEyedropping}
+        setIsEyedropping={setIsEyedropping}
+        clearCanvas={clearCanvas}
       />
     </CanvasContainer>
   );

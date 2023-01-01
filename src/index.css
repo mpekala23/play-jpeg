@@ -12,6 +12,10 @@ input {
   font-family: var(--font-stuff);
 }
 
+text {
+  font-family: var(--font-stuff);
+}
+
 body {
   margin: 0;
   font-family: var(--font-stuff);
@@ -19,6 +23,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
   background-color: var(--dark);
+  color: var(--light);
 }
 
 code {
