@@ -1,2 +1,2 @@
-export const BOXSIZE = 48;
-export const BOXBORDERSIZE = 2;
+export const BOXSIZE = 50;
+export const BOXBORDERSIZE = 1;

@@ -80,7 +80,7 @@ const Canvas: FC<Props> = ({ updateVals, updatePenDown }) => {
     for (let rx = 0; rx < GRIDSIZE; rx += 1) {
       for (let cx = 0; cx < GRIDSIZE; cx += 1) {
         let key = getPositionString(rx, cx);
-        result.push(<Pixel rx={rx} cx={cx} val={vals[key]} />);
+        result.push(<Pixel key={key} rx={rx} cx={cx} val={vals[key]} />);
       }
     }
     return result;

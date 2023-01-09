@@ -11,6 +11,7 @@ import { LIGHT } from "../../styles";
 import { getPositionString, GRIDSIZE } from "../../utils";
 import Box from "./Box";
 import { BOXSIZE, BOXBORDERSIZE } from "./constants";
+import Menu from "./Menu";
 
 interface Props {
   updateVals: (vals: { [key: string]: number }) => void;
@@ -18,8 +19,8 @@ interface Props {
 
 const OuterBox = styled.div`
   border: 1px solid ${LIGHT};
-  width: ${BOXSIZE * GRIDSIZE + GRIDSIZE * BOXBORDERSIZE}px;
-  height: ${BOXSIZE * GRIDSIZE + GRIDSIZE * BOXBORDERSIZE}px;
+  width: ${BOXSIZE * GRIDSIZE + BOXBORDERSIZE + 1}px;
+  height: ${BOXSIZE * GRIDSIZE + BOXBORDERSIZE + 1}px;
 `;
 
 function mapMouseToPos(
@@ -110,6 +111,7 @@ const QTable: FC<Props> = ({ updateVals }) => {
             isSelecting={selectingMap[key]}
             val={vals[key]}
             updateVal={updateBox}
+            key={key}
           />
         );
       }
@@ -192,6 +194,7 @@ const QTable: FC<Props> = ({ updateVals }) => {
       }}
     >
       <form>{renderBoxes()}</form>
+      <Menu updateQTable={updateVals} />
     </OuterBox>
   );
 };

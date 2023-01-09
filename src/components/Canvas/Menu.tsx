@@ -6,6 +6,8 @@ import { DARK_LESS, LIGHT, LIGHT_PINK } from "../../styles";
 import { invertColor, StrPixels } from "../../utils";
 import { useOutsideAlert } from "../../utils/hooks.ts/useOutsideAlert";
 import { confirmAlert } from "react-confirm-alert";
+import SelectPremade from "./SelectPremade";
+import SelectSubimage from "./SelectSubimage";
 
 interface Props {
   color: string;
@@ -46,11 +48,21 @@ const Menu: FC<Props> = ({
   clearCanvas,
 }) => {
   const [isSelectingColor, setIsSelectingColor] = useState<boolean>(false);
+  const [isSelectingPremade, setIsSelectingPremade] = useState<boolean>(false);
+  const [isSelectingSubimage, setIsSelectingSubimage] =
+    useState<boolean>(false);
   const sketchPickerRef = createRef<HTMLDivElement>();
+  const premadePickerRef = createRef<HTMLDivElement>();
 
   useOutsideAlert(sketchPickerRef, () => {
     setTimeout(() => {
       setIsSelectingColor(false);
+    }, 100);
+  });
+
+  useOutsideAlert(premadePickerRef, () => {
+    setTimeout(() => {
+      setIsSelectingPremade(false);
     }, 100);
   });
 
@@ -92,6 +104,42 @@ const Menu: FC<Props> = ({
             setIsEyedropping((val: boolean) => !val);
           }}
         />
+      </ButtonContainer>
+      <ButtonContainer>
+        <div>
+          <Icon
+            name={isSelectingPremade ? "pantone-fill" : "pantone-line"}
+            isBig={isSelectingPremade}
+            color={LIGHT_PINK}
+            size={32}
+            onClick={() => {
+              setIsSelectingPremade((val: boolean) => !val);
+            }}
+          />
+          {isSelectingPremade && (
+            <div ref={premadePickerRef}>
+              <SelectPremade onSelectImage={(image) => updatePixels(image)} />
+            </div>
+          )}
+        </div>
+      </ButtonContainer>
+      <ButtonContainer>
+        <div>
+          <Icon
+            name={isSelectingSubimage ? "landscape-fill" : "landscape-line"}
+            isBig={isSelectingSubimage}
+            color={LIGHT_PINK}
+            size={32}
+            onClick={() => {
+              setIsSelectingSubimage((val: boolean) => !val);
+            }}
+          />
+          <SelectSubimage
+            isOpen={isSelectingSubimage}
+            close={() => setIsSelectingSubimage(false)}
+            updatePixels={updatePixels}
+          />
+        </div>
       </ButtonContainer>
       <ButtonContainer>
         <Icon
