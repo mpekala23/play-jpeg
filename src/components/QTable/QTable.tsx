@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 import styled from "styled-components";
-import { LIGHT } from "../../styles";
+import { DARK, LIGHT } from "../../styles";
 import { getPositionString, GRIDSIZE } from "../../utils";
 import Box from "./Box";
 import { BOXSIZE, BOXBORDERSIZE } from "./constants";
@@ -18,9 +18,9 @@ interface Props {
 }
 
 const OuterBox = styled.div`
-  border: 1px solid ${LIGHT};
-  width: ${BOXSIZE * GRIDSIZE + BOXBORDERSIZE + 1}px;
-  height: ${BOXSIZE * GRIDSIZE + BOXBORDERSIZE + 1}px;
+  border: 2px solid ${DARK};
+  width: ${BOXSIZE * GRIDSIZE + BOXBORDERSIZE + 3}px;
+  height: ${BOXSIZE * GRIDSIZE + BOXBORDERSIZE + 3}px;
 `;
 
 function mapMouseToPos(
@@ -181,21 +181,23 @@ const QTable: FC<Props> = ({ updateVals }) => {
   }, [vals]);
 
   return (
-    <OuterBox
-      ref={selfRef}
-      onMouseDown={startSelecting}
-      onMouseUp={stopSelecting}
-      onMouseMove={(e) => {
-        if (selfRef.current) {
-          mouseX.current = e.pageX - selfRef.current.offsetLeft;
-          mouseY.current = e.pageY - selfRef.current.offsetTop;
-          if (isSelecting) updateSelectingMap();
-        }
-      }}
-    >
-      <form>{renderBoxes()}</form>
-      <Menu updateQTable={updateVals} />
-    </OuterBox>
+    <div>
+      <OuterBox
+        ref={selfRef}
+        onMouseDown={startSelecting}
+        onMouseUp={stopSelecting}
+        onMouseMove={(e) => {
+          if (selfRef.current) {
+            mouseX.current = e.pageX - selfRef.current.offsetLeft;
+            mouseY.current = e.pageY - selfRef.current.offsetTop;
+            if (isSelecting) updateSelectingMap();
+          }
+        }}
+      >
+        <form>{renderBoxes()}</form>
+      </OuterBox>
+      <Menu updateQTable={setVals} />
+    </div>
   );
 };
 

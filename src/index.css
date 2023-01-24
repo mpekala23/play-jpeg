@@ -3,13 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --font-stuff: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
-    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  --dark: #022527;
-  --alt-dark: #873c31;
-  --light: #e6e6e6;
-  --light-green: #b6cdba;
-  --light-pink: #ffc2f7;
+  --dark: #59344f;
+  --less-dark: #744467;
+  --light: #d6fff6;
+  --green: #214f4b;
+  --tan: #e6b89c;
+  --pink: #8e3b46;
 }
 
 input {
@@ -22,12 +21,11 @@ text {
 
 body {
   margin: 0;
-  font-family: var(--font-stuff);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
-  background-color: var(--dark);
-  color: var(--light);
+  background-color: var(--light);
+  color: black;
 }
 
 code {

@@ -12,6 +12,7 @@ import Pixel from "./Pixel";
 import { getPositionString, GRIDSIZE } from "../../utils";
 import Menu from "./Menu";
 import { useOutsideAlert } from "../../utils/hooks.ts/useOutsideAlert";
+import { DARK } from "../../styles";
 
 interface Props {
   updateVals: (vals: { [key: string]: string }) => void;
@@ -21,9 +22,10 @@ interface Props {
 const CanvasContainer = styled.div``;
 
 const OuterCanvas = styled.div`
-  width: ${BOXSIZE * GRIDSIZE + GRIDSIZE * BOXBORDERSIZE}px;
-  height: ${BOXSIZE * GRIDSIZE + GRIDSIZE * BOXBORDERSIZE}px;
+  width: ${BOXSIZE * GRIDSIZE + GRIDSIZE * BOXBORDERSIZE + 4}px;
+  height: ${BOXSIZE * GRIDSIZE + GRIDSIZE * BOXBORDERSIZE + 2}px;
   font-size: 0;
+  border: 2px solid ${DARK};
 `;
 
 function mapMouseToPos(

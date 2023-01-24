@@ -1,7 +1,9 @@
 import React, { FC, ReactNode } from "react";
 import styled from "styled-components";
+import { DARK } from "../../styles";
 import { getPositionString, GRIDSIZE } from "../../utils";
 import { BOXSIZE, BOXBORDERSIZE } from "./constants";
+import Menu from "./Menu";
 import Pixel from "./Pixel";
 
 interface Props {
@@ -9,8 +11,9 @@ interface Props {
 }
 
 const OuterResult = styled.div`
-  width: ${BOXSIZE * GRIDSIZE + GRIDSIZE * BOXBORDERSIZE}px;
-  height: ${BOXSIZE * GRIDSIZE + GRIDSIZE * BOXBORDERSIZE}px;
+  width: ${BOXSIZE * GRIDSIZE + GRIDSIZE * BOXBORDERSIZE + 4}px;
+  height: ${BOXSIZE * GRIDSIZE + GRIDSIZE * BOXBORDERSIZE + 2}px;
+  border: 2px solid ${DARK};
   font-size: 0;
 `;
 
@@ -26,7 +29,12 @@ const Result: FC<Props> = ({ vals }) => {
     return result;
   };
 
-  return <OuterResult>{renderBoxes()}</OuterResult>;
+  return (
+    <div>
+      <OuterResult>{renderBoxes()}</OuterResult>
+      <Menu pixels={vals} />
+    </div>
+  );
 };
 
 export default Result;

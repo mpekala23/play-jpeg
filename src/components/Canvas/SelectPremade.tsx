@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { ALT_DARK, DEFAULT_TRANSITION, MARGIN, PADDING } from "../../styles";
+import { LESS_DARK, DEFAULT_TRANSITION, MARGIN, PADDING } from "../../styles";
 import { StrPixels } from "../../utils";
 import { Premade, PREMADES } from "./premades";
 
@@ -35,7 +35,7 @@ const SquareContainer = styled.div`
     transform: scale(1.2);
     cursor: pointer;
     z-index: 100;
-    border: ${PREMADE_BORDER}px solid ${ALT_DARK};
+    border: ${PREMADE_BORDER}px solid ${LESS_DARK};
   }
 `;
 

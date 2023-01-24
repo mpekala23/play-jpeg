@@ -2,7 +2,7 @@ import React, { createRef, FC, useState } from "react";
 import { SketchPicker } from "react-color";
 import styled from "styled-components";
 import { Icon } from "../../common";
-import { DARK_LESS, LIGHT, LIGHT_PINK } from "../../styles";
+import { DARK, TAN } from "../../styles";
 import { invertColor, StrPixels } from "../../utils";
 import { useOutsideAlert } from "../../utils/hooks.ts/useOutsideAlert";
 import { confirmAlert } from "react-confirm-alert";
@@ -24,8 +24,8 @@ const MenuContainer = styled.div`
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  border: 1px solid ${LIGHT};
-  background-color: ${DARK_LESS};
+  border: 2px solid ${DARK};
+  background-color: ${TAN};
 `;
 
 const ButtonContainer = styled.div<{ bgColor?: string }>`
@@ -98,7 +98,7 @@ const Menu: FC<Props> = ({
         <Icon
           name={isEyedropping ? "sip-fill" : "sip-line"}
           isBig={isEyedropping}
-          color={LIGHT_PINK}
+          color={DARK}
           size={32}
           onClick={() => {
             setIsEyedropping((val: boolean) => !val);
@@ -110,7 +110,7 @@ const Menu: FC<Props> = ({
           <Icon
             name={isSelectingPremade ? "pantone-fill" : "pantone-line"}
             isBig={isSelectingPremade}
-            color={LIGHT_PINK}
+            color={DARK}
             size={32}
             onClick={() => {
               setIsSelectingPremade((val: boolean) => !val);
@@ -128,7 +128,7 @@ const Menu: FC<Props> = ({
           <Icon
             name={isSelectingSubimage ? "landscape-fill" : "landscape-line"}
             isBig={isSelectingSubimage}
-            color={LIGHT_PINK}
+            color={DARK}
             size={32}
             onClick={() => {
               setIsSelectingSubimage((val: boolean) => !val);
@@ -144,7 +144,7 @@ const Menu: FC<Props> = ({
       <ButtonContainer>
         <Icon
           name={"delete-bin-line"}
-          color={LIGHT_PINK}
+          color={DARK}
           size={32}
           onClick={() => {
             confirmAlert({

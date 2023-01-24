@@ -1,9 +1,10 @@
-import React, { createRef, FC, useState } from "react";
+import React, { createRef, FC, useCallback, useState } from "react";
 import styled from "styled-components";
-import { DARK_LESS, LIGHT, LIGHT_PINK } from "../../styles";
+import { DARK, TAN } from "../../styles";
 import { useOutsideAlert } from "../../utils/hooks.ts/useOutsideAlert";
-import { confirmAlert } from "react-confirm-alert";
-import { NumPixels } from "../../utils";
+import { getPositionString, GRIDSIZE, NumPixels } from "../../utils";
+import { Icon } from "../../common";
+import SelectPremade from "./SelectPremade";
 
 interface Props {
   updateQTable: (vals: NumPixels) => void;
@@ -15,8 +16,9 @@ const MenuContainer = styled.div`
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  border: 1px solid ${LIGHT};
-  background-color: ${DARK_LESS};
+  border: 2px solid ${DARK};
+  border-top: 0px;
+  background-color: ${TAN};
 `;
 
 const ButtonContainer = styled.div<{ bgColor?: string }>`
@@ -31,7 +33,56 @@ const ButtonContainer = styled.div<{ bgColor?: string }>`
 `;
 
 const Menu: FC<Props> = ({ updateQTable }) => {
-  return <MenuContainer></MenuContainer>;
+  const [isSelectingPremade, setIsSelectingPremade] = useState(false);
+  const premadePickerRef = createRef<HTMLDivElement>();
+
+  const randomize = useCallback(() => {
+    let randomVals: { [key: string]: number } = {};
+    for (let rx = 0; rx < GRIDSIZE; rx += 1) {
+      for (let cx = 0; cx < GRIDSIZE; cx += 1) {
+        let key = getPositionString(rx, cx);
+        randomVals[key] = Math.floor(Math.random() * 255) + 1;
+      }
+    }
+    updateQTable(randomVals);
+  }, [updateQTable]);
+
+  useOutsideAlert(premadePickerRef, () => {
+    setTimeout(() => {
+      setIsSelectingPremade(false);
+    }, 100);
+  });
+
+  return (
+    <MenuContainer>
+      <ButtonContainer>
+        <Icon
+          name={"shuffle-line"}
+          color={DARK}
+          size={32}
+          onClick={randomize}
+        />
+      </ButtonContainer>
+      <ButtonContainer>
+        <div>
+          <Icon
+            name={isSelectingPremade ? "book-3-fill" : "book-3-line"}
+            isBig={isSelectingPremade}
+            color={DARK}
+            size={32}
+            onClick={() => {
+              setIsSelectingPremade((val: boolean) => !val);
+            }}
+          />
+          {isSelectingPremade && (
+            <div ref={premadePickerRef}>
+              <SelectPremade onSelectQTable={updateQTable} />
+            </div>
+          )}
+        </div>
+      </ButtonContainer>
+    </MenuContainer>
+  );
 };
 
 export default Menu;

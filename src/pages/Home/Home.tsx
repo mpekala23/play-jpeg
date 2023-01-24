@@ -48,7 +48,7 @@ const HomePage: React.FC = () => {
 
   return (
     <PageBackground>
-      <h1>play.JPEG</h1>
+      <h1 className="text-xl mb-4 font-bold">play.JPEG</h1>
       <RowWrapper>
         <Canvas updateVals={setRawVals} updatePenDown={setIsPenDown} />
         <QTable updateVals={setQVals} />

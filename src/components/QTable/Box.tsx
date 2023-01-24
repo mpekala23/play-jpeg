@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { DARK, DARK_LESS, LIGHT } from "../../styles";
+import { DARK, LESS_DARK, LIGHT, TAN } from "../../styles";
 import { BOXSIZE, BOXBORDERSIZE } from "./constants";
 
 interface Props {
@@ -30,8 +30,8 @@ const OuterBox = styled.div<{ isSelected: boolean }>`
   width: ${BOXSIZE}px;
   height: ${BOXSIZE}px;
   padding: 0px;
-  border: ${BOXBORDERSIZE / 2}px solid var(--light);
-  background-color: ${(props) => (props.isSelected ? DARK_LESS : DARK)};
+  border: ${BOXBORDERSIZE / 2}px solid ${TAN};
+  background-color: ${(props) => (props.isSelected ? LESS_DARK : DARK)};
 `;
 
 const HiddenInput = styled.input`
@@ -40,7 +40,7 @@ const HiddenInput = styled.input`
   padding: 0px;
   margin: 0px;
   border: 0px;
-  color: ${LIGHT};
+  color: ${TAN};
   font-size: 18px;
   background-color: transparent;
   text-align: center;
@@ -67,12 +67,6 @@ const Box: FC<Props> = ({ rx, cx, isEditing, isSelecting, val, updateVal }) => {
       updateVal({ val: localVal, done: false });
     }
   }, [localVal]);
-
-  useEffect(() => {
-    if (inputRef.current) {
-      // inputRef.current.focus();
-    }
-  }, [isSelecting]);
 
   const handleBlur = () => {
     updateVal({ val: localVal, done: true });
@@ -103,6 +97,14 @@ const Box: FC<Props> = ({ rx, cx, isEditing, isSelecting, val, updateVal }) => {
           }
         }}
         onBlur={handleBlur}
+        onFocus={() => {
+          setTimeout(() => {
+            if (inputRef.current) {
+              inputRef.current.selectionStart = inputRef.current.selectionEnd =
+                inputRef.current.value.length;
+            }
+          }, 100);
+        }}
       />
     </OuterBox>
   );

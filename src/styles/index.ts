@@ -12,11 +12,11 @@ export const Dummy = styled.div`
   text-align: center;
 `;
 
-export const DARK = "#022527";
-export const DARK_LESS = "#044A4E";
-export const ALT_DARK = "#3C1A15";
-export const LIGHT = "#e6e6e6";
-export const LIGHT_GREEN = "#b6cdba";
-export const LIGHT_PINK = "#ffc2f7";
+export const DARK = "#59344f";
+export const LESS_DARK = "#744467";
+export const LIGHT = "#d6fff6";
+export const GREEN = "#214f4b";
+export const TAN = "#e6b89c";
+export const PINK = "#8e3b46";
 
 export const DEFAULT_TRANSITION = "all 0.3s ease";
