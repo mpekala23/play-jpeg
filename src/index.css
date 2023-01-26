@@ -4,6 +4,7 @@
 
 :root {
   --dark: #59344f;
+  --more-dark: #271722;
   --less-dark: #744467;
   --light: #d6fff6;
   --green: #214f4b;
@@ -25,7 +26,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
   background-color: var(--light);
-  color: black;
+  color: var(--more-dark);
 }
 
 code {

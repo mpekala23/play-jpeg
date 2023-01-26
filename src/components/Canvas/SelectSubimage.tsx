@@ -43,6 +43,7 @@ const SelectSubimage: FC<Props> = ({ isOpen, close, updatePixels }) => {
       justifyContent: "center",
       alignItems: "center",
       width: "100vw",
+      zIndex: 10,
     },
     content: {
       width: file ? "75vw" : "500px",

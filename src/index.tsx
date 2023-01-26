@@ -5,13 +5,16 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "remixicon/fonts/remixicon.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import { DARK } from "./styles";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <div className={`dark text-[#${DARK}]`}>
+      <App />
+    </div>
   </React.StrictMode>
 );
 
