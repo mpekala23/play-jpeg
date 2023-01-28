@@ -2,6 +2,7 @@ import React, { createRef, useEffect } from "react";
 import HomePage from "./pages/Home/Home";
 import * as THREE from "three";
 import WAVES from "./components/Vanta/vanta.min.waves";
+import { PageBackground } from "./styles";
 
 const App: React.FC = () => {
   const vantaRef = createRef<HTMLDivElement>();
@@ -30,8 +31,16 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <div className="relative z-[1]">
+      <div className="hidden flex relative xl:block z-[11]">
         <HomePage />
+      </div>
+      <div className="relative flex xl:hidden justify-center items-center w-screen h-screen z-10">
+        <PageBackground>
+          <p className="text-black">play.JPEG only works on big screens.</p>
+          <p className="text-black mt-4">
+            (Sorry, if you're on a small laptop try zooming out)
+          </p>
+        </PageBackground>
       </div>
       <div
         ref={vantaRef}
