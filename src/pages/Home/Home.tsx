@@ -12,6 +12,7 @@ import {
   JPEG_encode,
   NumPixels,
 } from "../../utils";
+import Latex from "react-latex";
 
 const RowWrapper = styled.div`
   display: flex;
@@ -83,7 +84,7 @@ const HomePage: React.FC = () => {
             called YCbCr. This color space represents each pixel with three
             values, aptly named Y, Cb, and Cr. The Y value simply represents the
             brightness of the pixel while the Cb and Cr values represent the
-            chrominance (split into red and blue components). The justification
+            chrominance (split into blue and red components). The justification
             will become clear in the next subsection.
           </p>
           <p className="text-xl font-bold italic my-4">Downsampling</p>
@@ -98,7 +99,64 @@ const HomePage: React.FC = () => {
             the image through averaging. For example, downsampling a 4x4 image
             into a 2x2 image might look like so:
           </p>
-          <table></table>
+          <div className="flex justify-center items-center my-4">
+            <table>
+              <tbody>
+                <tr>
+                  <td className="w-8 border border-black text-center">1</td>
+                  <td className="w-8 border border-black text-center">2</td>
+                  <td className="w-8 border border-black text-center">3</td>
+                  <td className="w-8 border border-black text-center">4</td>
+                </tr>
+                <tr>
+                  <td className="w-8 border border-black text-center">5</td>
+                  <td className="w-8 border border-black text-center">6</td>
+                  <td className="w-8 border border-black text-center">7</td>
+                  <td className="w-8 border border-black text-center">8</td>
+                </tr>
+                <tr>
+                  <td className="w-8 border border-black text-center">9</td>
+                  <td className="w-8 border border-black text-center">10</td>
+                  <td className="w-8 border border-black text-center">11</td>
+                  <td className="w-8 border border-black text-center">12</td>
+                </tr>
+                <tr>
+                  <td className="w-8 border border-black text-center">13</td>
+                  <td className="w-8 border border-black text-center">14</td>
+                  <td className="w-8 border border-black text-center">15</td>
+                  <td className="w-8 border border-black text-center">16</td>
+                </tr>
+              </tbody>
+            </table>
+            <div className="mx-6 scale-[2]">
+              <Latex displayMode={true}>$$\to$$</Latex>
+            </div>
+            <table>
+              <tbody>
+                <tr>
+                  <td className="w-10 border border-black text-center">3.5</td>
+                  <td className="w-10 border border-black text-center">5.5</td>
+                </tr>
+                <tr>
+                  <td className="w-10 border border-black text-center">11.5</td>
+                  <td className="w-10 border border-black text-center">13.5</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            Notice that we begin with a 4x4 image and end up with a 2x2 image.
+            I.e., compression has occured. The values in this example are
+            obtained by average disjoint 2x2 blocks present in the original
+            image. For JPEG compression, usually the Y channel is left
+            unchanged, and some combination of the chrominance channel is
+            downsampled to give cheap initial compression.
+          </p>
+          <p className="mt-4">
+            NOTE: From here on out, the encoding procedure will work on one
+            channel at a time. That is to say, we repeat the remaining process
+            below three times, once per channel.
+          </p>
         </div>
       </div>
     </PageBackground>
