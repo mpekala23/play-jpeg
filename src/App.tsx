@@ -1,7 +1,7 @@
 import React, { createRef, useEffect } from "react";
 import HomePage from "./pages/Home/Home";
 import * as THREE from "three";
-import WAVES from "./components/Vanta/vanta.min.waves";
+import WAVES from "./components/Vanta/vanta.waves";
 import { PageBackground } from "./styles";
 
 const App: React.FC = () => {

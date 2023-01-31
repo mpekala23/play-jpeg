@@ -2,5 +2,9 @@
   "rules": {
     "react-hooks/exhaustive-deps": "off",
     "no-unused-expressions": "off"
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2020
   }
 }
